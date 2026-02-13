@@ -11,7 +11,7 @@ load as many posts as the API permits while achieving a clean UX
 ## TODO
 
 - [x] Setup tests (vitest, react testing library, msw)
-- [ ] Setup style and component (tailwindcss and ShadCN)
+- [x] Setup style and component (tailwindcss and ShadCN)
 - [ ] setup server state management (ReactQuery)
   - [ ] setup runtime validations (zod)
 - [ ] Deploy to github pages
