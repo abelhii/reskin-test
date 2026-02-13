@@ -12,7 +12,7 @@ load as many posts as the API permits while achieving a clean UX
 
 - [x] Setup tests (vitest, react testing library, msw)
 - [x] Setup style and component (tailwindcss and ShadCN)
-- [ ] setup server state management (ReactQuery)
+- [x] setup server state management (ReactQuery)
   - [ ] setup runtime validations (zod)
 - [ ] Deploy to github pages
 - [ ] Create frontpage
