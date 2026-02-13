@@ -1,26 +1,24 @@
-import { useGetStories } from "@/data-access/api";
+import { Nav } from "@/components/nav";
+import { Stories } from "@/components/Stories";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function FrontPage() {
-  const { data: stories } = useGetStories({type: 'new'});
-
   return (
-    <section className="flex flex-col items-center justify-center gap-8 my-8">
-      <h1 className="text-5xl font-bold text-gray-800">Welcome to Hacker News</h1>
+    <section className="flex flex-col px-8 sm:px-16 lg:px-24 items-center gap-12 py-8 max-w-5xl m-auto">
+      <Nav />
 
-      {stories && (
-        <div className="flex flex-col items-start gap-4">
-          {stories.map((story) => (
-            <div className="flex flex-col items-start">
-              <a href={story.url} target="_blank">
-                <h3>{story.title}</h3>
-              </a>
-              <span className="text-sm text-gray-400">
-                {story.score} points
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+      <Tabs defaultValue="top" className="w-full max-w-2xl">
+        <TabsList variant="line" className="pb-4">
+          <TabsTrigger value="top">Top</TabsTrigger>
+          <TabsTrigger value="new">New</TabsTrigger>
+        </TabsList>
+        <TabsContent value="top">
+          <Stories category="top" />
+        </TabsContent>
+        <TabsContent value="new">
+          <Stories category="new" />
+        </TabsContent>
+      </Tabs>
     </section>
   );
 }

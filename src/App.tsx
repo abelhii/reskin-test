@@ -2,7 +2,7 @@ import { FrontPage } from "./pages/FrontPage";
 
 function App() {
   return (
-    <div className="max-w-6xl m-auto">
+    <div className="">
       <FrontPage />
     </div>
   );

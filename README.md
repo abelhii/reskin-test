@@ -22,9 +22,10 @@ load as many posts as the API permits while achieving a clean UX
     - [ ] add skeleton loader
     - [ ] Create story card component
   - [x] add types for the api
-- [ ] Add a way to filter between new and top posts (maybe tabs/quick filters?)
+- [x] Add a way to filter between new and top posts (tabs)
 - [ ] Add pagination capabilities
 - [ ] add tests
+- [ ] Dark mode toggle
 
 ## Original prompt
 
