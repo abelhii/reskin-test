@@ -16,11 +16,15 @@ load as many posts as the API permits while achieving a clean UX
   - [ ] setup runtime validations (zod)
 - [x] Deploy to github pages
 - [ ] Create frontpage
-- [ ] Create Post component
-  - [ ] add types for the api
-  - [ ] add tests
+  - [x] fetch top posts for front page
+  - [x] fetch new posts for front page
+  - [ ] style the front page
+    - [ ] add skeleton loader
+    - [ ] Create story card component
+  - [x] add types for the api
 - [ ] Add a way to filter between new and top posts (maybe tabs/quick filters?)
 - [ ] Add pagination capabilities
+- [ ] add tests
 
 ## Original prompt
 
