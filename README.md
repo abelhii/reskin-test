@@ -14,7 +14,7 @@ load as many posts as the API permits while achieving a clean UX
 - [x] Setup style and component (tailwindcss and ShadCN)
 - [x] setup server state management (ReactQuery)
   - [ ] setup runtime validations (zod)
-- [ ] Deploy to github pages
+- [x] Deploy to github pages
 - [ ] Create frontpage
 - [ ] Create Post component
   - [ ] add types for the api
