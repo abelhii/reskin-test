@@ -1,9 +1,10 @@
-export type Category = 'top' | 'new'
+export type Category = "top" | "new" | "ask";
 
 export const CategoryPaths: Record<Category, string> = {
-  top: 'topstories.json',
-  new: 'newstories.json'
-}
+  top: "topstories.json",
+  new: "newstories.json",
+  ask: "askstories.json",
+};
 
 export type Story = {
   id: string;

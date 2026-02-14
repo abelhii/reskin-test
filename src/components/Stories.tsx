@@ -2,6 +2,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
+  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
@@ -14,9 +15,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetStoryIds } from "@/data-access/api";
-import type { Category } from "@/types";
-import { StoryCard } from "./StoryCard";
 import { usePagination } from "@/hooks/usePagination";
+import type { Category } from "@/types";
+import { ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react";
+import { StoryCard } from "./StoryCard";
 
 type StoriesProps = {
   category: Category;
@@ -25,22 +27,28 @@ type StoriesProps = {
 export function Stories({ category }: StoriesProps) {
   const { page, size, handleNextPage, handlePrevPage, handleSizeChange } =
     usePagination({});
-  const { storyIds } = useGetStoryIds({ category, pagination: { page, size } });
+  const { paginatedIds, data: storyIds } = useGetStoryIds({
+    category,
+    pagination: { page, size },
+  });
 
   const getDisplayIndex = (idx: number) => idx + 1 + (page - 1) * size;
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-start gap-2">
-        {storyIds.map((id, index) => (
+        {paginatedIds.map((id, index) => (
           <StoryCard key={id} id={id} index={getDisplayIndex(index)} />
         ))}
       </div>
 
       <div className="flex items-center justify-between gap-4 p-6">
         <div className="flex w-fit items-center gap-4">
-          <label htmlFor="select-rows-per-page">Rows per page</label>
+          <label className="hidden sm:block" htmlFor="select-rows-per-page">
+            Rows per page
+          </label>
           <Select
+            aria-label="Select rows per page"
             defaultValue={(size || 10).toString()}
             onValueChange={handleSizeChange}
           >
@@ -60,11 +68,31 @@ export function Stories({ category }: StoriesProps) {
         <Pagination className="mx-0 w-auto">
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious onClick={handlePrevPage} />
+              <PaginationLink
+                aria-label="Go to first page"
+                onClick={() => handlePrevPage(true)}
+              >
+                <ChevronsLeftIcon />
+              </PaginationLink>
             </PaginationItem>
-            Page {page}
             <PaginationItem>
-              <PaginationNext onClick={handleNextPage} />
+              <PaginationPrevious onClick={() => handlePrevPage()} />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink aria-label="page number" isActive className="bg-white">
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext onClick={() => handleNextPage()} />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink
+                aria-label="Go to last page"
+                onClick={() => handleNextPage(true, storyIds?.length)}
+              >
+                <ChevronsRightIcon />
+              </PaginationLink>
             </PaginationItem>
           </PaginationContent>
         </Pagination>

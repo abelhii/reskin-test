@@ -19,7 +19,7 @@
   - [x] fetch top posts for front page
   - [x] fetch new posts for front page
   - [x] style the front page
-    - [ ] add skeleton loader
+    - [x] add skeleton loader
     - [x] Create story card component
   - [x] add types for the api
 - [x] Add a way to filter between new and top posts (tabs)

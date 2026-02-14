@@ -10,7 +10,22 @@ type StoryCardProps = {
 export function StoryCard({ id, index }: StoryCardProps) {
   const { data: story } = useGetStory(id);
 
-  if (!story) return <Skeleton className="min-h-23.5" />;
+  if (!story)
+    return (
+      <Card className="min-h-23.5 w-full rounded-sm shadow-none">
+        <CardContent className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/4" />
+          <Skeleton className="h-4 w-1/4" />
+        </CardContent>
+      </Card>
+    );
+
+  const host = (() => {
+    if (!story.url) return null;
+    const url = new URL(story.url);
+    return url.host;
+  })();
 
   return (
     <Card className="min-h-23.5 w-full rounded-sm shadow-none">
@@ -18,8 +33,12 @@ export function StoryCard({ id, index }: StoryCardProps) {
         <span className="text-sm text-gray-400">{index}.</span>
         <div className="flex flex-col items-start">
           <a href={story.url} target="_blank">
-            <h3>{story.title}</h3>
-            <span className="text-xs text-gray-400">{`(${story.url})`}</span>
+            <h4 className="flex flex-wrap items-center gap-1">
+              {story.title}
+              {host && (
+                <span className="text-sm text-gray-400">{`(${host})`}</span>
+              )}
+            </h4>
           </a>
           <div className="flex gap-2">
             <span className="text-sm text-gray-400">{story.score} points</span>
