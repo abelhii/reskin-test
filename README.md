@@ -2,11 +2,11 @@
 
 ## Main requirements
 
-- [ ] Redesign the front page
-- [ ] The user should be able to choose between new and top posts
-- [ ] The posts can be shown in any way you like (grid/list etc.)
-- [ ] How you handle pagination of the posts to display is up to you, but you should be able to
-load as many posts as the API permits while achieving a clean UX
+- [x] Redesign the front page
+- [x] The user should be able to choose between new and top posts
+- [x] The posts can be shown in any way you like (grid/list etc.)
+- [x] How you handle **pagination** of the posts to display is up to you, but you should be able to load as many posts as the API permits while achieving a clean UX
+- [ ] add tests
 
 ## TODO
 
@@ -15,17 +15,22 @@ load as many posts as the API permits while achieving a clean UX
 - [x] setup server state management (ReactQuery)
   - [ ] setup runtime validations (zod)
 - [x] Deploy to github pages
-- [ ] Create frontpage
+- [x] Create frontpage
   - [x] fetch top posts for front page
   - [x] fetch new posts for front page
-  - [ ] style the front page
+  - [x] style the front page
     - [ ] add skeleton loader
-    - [ ] Create story card component
+    - [x] Create story card component
   - [x] add types for the api
 - [x] Add a way to filter between new and top posts (tabs)
-- [ ] Add pagination capabilities
+- [x] Add pagination capabilities
 - [ ] add tests
 - [ ] Dark mode toggle
+- [ ] improve StoryCard styling
+
+## Bugs
+
+- [ ] page jumps when changing page size
 
 ## Original prompt
 

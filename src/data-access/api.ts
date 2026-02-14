@@ -1,7 +1,7 @@
 import {
   CategoryPaths,
   type Category,
-  type Pagination,
+  type PaginationType,
   type Story,
 } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -22,17 +22,18 @@ const buildUrl = (
     if (value !== null && value !== undefined)
       url.searchParams.append(key, value.toString());
   });
+
   return url;
 };
 
 export type UseGetStoryIdsProps = {
   category?: Category;
-  pagination?: Pagination;
+  pagination?: PaginationType;
 };
 
 export const useGetStoryIds = ({
   category = "top",
-  pagination = { page: 1, size: 100 },
+  pagination = { page: 1, size: 10 },
 }: UseGetStoryIdsProps) => {
   const { page, size } = pagination;
 
@@ -43,7 +44,7 @@ export const useGetStoryIds = ({
   };
 
   const query = useQuery({
-    queryKey: storyKeys.list({ category, pagination }),
+    queryKey: storyKeys.list({ category }),
     queryFn: getStoryIds,
     staleTime: 30 * 1000, // 30 seconds
     refetchOnWindowFocus: true,

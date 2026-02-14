@@ -17,7 +17,7 @@ export type Story = {
   time: number;
 };
 
-export type Pagination = {
+export type PaginationType = {
   page: number;
   size: number;
 };
