@@ -1,10 +1,7 @@
-import {
-  CategoryPaths,
-  type Category,
-  type PaginationType,
-  type Story,
-} from "@/types";
 import { useQuery } from "@tanstack/react-query";
+
+import { storySchema } from "@/schemas";
+import { CategoryPaths, type Category, type PaginationType } from "@/types";
 import { storyKeys } from "./api.keys";
 
 const baseUrl = "https://hacker-news.firebaseio.com/v0/";
@@ -54,16 +51,25 @@ export const useGetStoryIds = ({
   const start = (page - 1) * size;
   const end = start + size;
   const ids = query.data;
-  const storyIds = ids?.slice(start, end) || [];
+  const paginatedIds = ids?.slice(start, end) || [];
 
-  return { storyIds, ...query };
+  return { paginatedIds, ...query };
 };
 
 export const useGetStory = (id: string) => {
-  const getStory = async (): Promise<Story> => {
+  const getStory = async () => {
     const response = await fetch(buildUrl(`item/${id}.json`));
     if (!response.ok) throw new Error(`HTTP error: status: ${response.status}`);
-    return await response.json();
+
+    const json = await response.json();
+    const parsed = storySchema.safeParse(json);
+
+    if (!parsed.success) {
+      console.warn("Invalid story payload", parsed.error);
+      return json; // fall back
+    }
+
+    return parsed.data;
   };
 
   const query = useQuery({

@@ -1,3 +1,6 @@
+import { z } from "zod";
+import type { storySchema } from "./schemas";
+
 export type Category = "top" | "new" | "ask";
 
 export const CategoryPaths: Record<Category, string> = {
@@ -6,17 +9,7 @@ export const CategoryPaths: Record<Category, string> = {
   ask: "askstories.json",
 };
 
-export type Story = {
-  id: string;
-  by: string;
-  title: string;
-  type: "story";
-  url: string;
-  descendants: number;
-  kids: string[];
-  score: number;
-  time: number;
-};
+export type Story = z.infer<typeof storySchema>;
 
 export type PaginationType = {
   page: number;

@@ -1,4 +1,6 @@
 import { useGetStory } from "@/data-access/api";
+import { logger } from "@/lib/logger";
+import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
 
@@ -8,9 +10,26 @@ type StoryCardProps = {
 };
 
 export function StoryCard({ id, index }: StoryCardProps) {
-  const { data: story } = useGetStory(id);
+  const { data: story, isLoading, isError, error } = useGetStory(id);
 
-  if (!story)
+  if (isError) {
+    logger.error(error);
+
+    return (
+      <Card className="w-full border-red-300">
+        <CardContent>
+          <p>
+            Something went wrong, please contact support at
+            <Button variant="link">
+              <a href="mailto:abelhii@gmail.com">abelhii@outlook.com</a>
+            </Button>
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!story || isLoading) {
     return (
       <Card className="min-h-23.5 w-full rounded-sm shadow-none">
         <CardContent className="flex flex-col gap-2">
@@ -20,6 +39,7 @@ export function StoryCard({ id, index }: StoryCardProps) {
         </CardContent>
       </Card>
     );
+  }
 
   const host = (() => {
     if (!story.url) return null;
