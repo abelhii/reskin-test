@@ -11,12 +11,13 @@ export const usePagination = ({
   const [size, setSize] = useState(defaultSize);
 
   const handleNextPage = (toLastPage?: boolean, maxSize?: number) => {
+    const maxPage = Math.round((maxSize || size) / size);
     if (toLastPage) {
-      const maxPage = Math.round((maxSize || size) / size);
       setPage(maxPage);
       return;
     }
-    setPage(page + 1);
+    const nextPage = page + 1;
+    setPage(nextPage > maxPage ? maxPage : nextPage);
   };
 
   const handlePrevPage = (toFirstPage?: boolean) => {

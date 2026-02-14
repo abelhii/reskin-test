@@ -79,12 +79,18 @@ export function Stories({ category }: StoriesProps) {
               <PaginationPrevious onClick={() => handlePrevPage()} />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink aria-label="page number" isActive className="bg-white">
+              <PaginationLink
+                aria-label="page number"
+                isActive
+                className="bg-white"
+              >
                 {page}
               </PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext onClick={() => handleNextPage()} />
+              <PaginationNext
+                onClick={() => handleNextPage(false, storyIds?.length)}
+              />
             </PaginationItem>
             <PaginationItem>
               <PaginationLink
