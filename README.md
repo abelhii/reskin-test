@@ -1,19 +1,63 @@
-# Reskin test
+# Genesys takehome test
 
-## Main requirements
+Hi, thank you for taking the time to review my take-home test!  
+You can view the deployed version on [Github Pages](https://abelhii.github.io/reskin-test/).
+
+or run it with npm or pnpm
+
+## Quick start
+
+with npm:
+
+```bash
+npm install
+npm run dev
+```
+
+or with pnpm:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Tech Stack
+
+- **Frontend:** React & TypeScript
+- **Styling:** TailwindCSS, ShadCN
+- **State Management:** React Query (Tanstack Query)
+- **Validation:** zod (runtime API validation)
+- **Testing:** Vitest, React Testing Library, MSW
+
+## Assumptions
+
+- The “Redesign the front page” requirement refers to the Hacker News homepage using `topstories.json`.
+- API responses are assumed to be consistent in structure.
+- More assumptions can be clarified on request.
+
+## Testing Strategy
+
+Focus on key UX behaviors and edge cases rather than 100% coverage:
+
+- API fetching: `getStory`, `getStoryIds`
+- Pagination: `usePagination` hook
+- Components: `StoryCard`
+
+
+## Minimum requirements
 
 - [x] Redesign the front page
 - [x] The user should be able to choose between new and top posts
 - [x] The posts can be shown in any way you like (grid/list etc.)
 - [x] How you handle **pagination** of the posts to display is up to you, but you should be able to load as many posts as the API permits while achieving a clean UX
-- [ ] add tests
+- [x] add tests
 
 ## TODO
 
 - [x] Setup tests (vitest, react testing library, msw)
 - [x] Setup style and component (tailwindcss and ShadCN)
 - [x] setup server state management (ReactQuery)
-  - [ ] setup runtime validations (zod)
+  - [x] setup runtime validations (zod)
 - [x] Deploy to github pages
 - [x] Create frontpage
   - [x] fetch top posts for front page
@@ -24,13 +68,9 @@
   - [x] add types for the api
 - [x] Add a way to filter between new and top posts (tabs)
 - [x] Add pagination capabilities
-- [ ] add tests
-- [ ] Dark mode toggle
+- [x] add tests
 - [ ] improve StoryCard styling
-
-## Bugs
-
-- [ ] page jumps when changing page size
+- [ ] Dark mode toggle
 
 ## Original prompt
 
