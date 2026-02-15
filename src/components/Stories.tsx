@@ -25,13 +25,21 @@ type StoriesProps = {
 };
 
 export function Stories({ category }: StoriesProps) {
-  const { page, size, handleNextPage, handlePrevPage, handleSizeChange } =
-    usePagination({});
+  const {
+    page,
+    size,
+    nextPage,
+    prevPage,
+    goToFirstPage,
+    goToLastPage,
+    changeSize,
+  } = usePagination({});
   const { paginatedIds, data: storyIds } = useGetStoryIds({
     category,
     pagination: { page, size },
   });
 
+  const totalItems = storyIds?.length;
   const getDisplayIndex = (idx: number) => idx + 1 + (page - 1) * size;
 
   return (
@@ -50,7 +58,7 @@ export function Stories({ category }: StoriesProps) {
           <Select
             aria-label="Select rows per page"
             defaultValue={(size || 10).toString()}
-            onValueChange={handleSizeChange}
+            onValueChange={(newSize) => changeSize(Number(newSize))}
           >
             <SelectTrigger className="w-20 bg-white" id="select-rows-per-page">
               <SelectValue />
@@ -70,13 +78,13 @@ export function Stories({ category }: StoriesProps) {
             <PaginationItem>
               <PaginationLink
                 aria-label="Go to first page"
-                onClick={() => handlePrevPage(true)}
+                onClick={goToFirstPage}
               >
                 <ChevronsLeftIcon />
               </PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationPrevious onClick={() => handlePrevPage()} />
+              <PaginationPrevious onClick={prevPage} />
             </PaginationItem>
             <PaginationItem>
               <PaginationLink
@@ -88,14 +96,12 @@ export function Stories({ category }: StoriesProps) {
               </PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext
-                onClick={() => handleNextPage(false, storyIds?.length)}
-              />
+              <PaginationNext onClick={() => nextPage(totalItems)} />
             </PaginationItem>
             <PaginationItem>
               <PaginationLink
                 aria-label="Go to last page"
-                onClick={() => handleNextPage(true, storyIds?.length)}
+                onClick={() => goToLastPage(totalItems || size)}
               >
                 <ChevronsRightIcon />
               </PaginationLink>

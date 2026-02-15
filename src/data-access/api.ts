@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { logger } from "@/lib/logger";
 import { storySchema } from "@/schemas";
 import { CategoryPaths, type Category, type PaginationType } from "@/types";
 import { storyKeys } from "./api.keys";
@@ -65,7 +66,7 @@ export const useGetStory = (id: string) => {
     const parsed = storySchema.safeParse(json);
 
     if (!parsed.success) {
-      console.warn("Invalid story payload", parsed.error);
+      logger.warn("Invalid story payload", parsed.error);
       return json; // fall back
     }
 

@@ -12,6 +12,21 @@ type StoryCardProps = {
 export function StoryCard({ id, index }: StoryCardProps) {
   const { data: story, isLoading, isError, error } = useGetStory(id);
 
+  if (isLoading) {
+    return (
+      <Card
+        aria-label="Loading..."
+        className="min-h-23.5 w-full rounded-sm shadow-none"
+      >
+        <CardContent className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/4" />
+          <Skeleton className="h-4 w-1/4" />
+        </CardContent>
+      </Card>
+    );
+  }
+
   if (isError) {
     logger.error(error);
 
@@ -24,18 +39,6 @@ export function StoryCard({ id, index }: StoryCardProps) {
               <a href="mailto:abelhii@gmail.com">abelhii@outlook.com</a>
             </Button>
           </p>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (!story || isLoading) {
-    return (
-      <Card className="min-h-23.5 w-full rounded-sm shadow-none">
-        <CardContent className="flex flex-col gap-2">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-2/4" />
-          <Skeleton className="h-4 w-1/4" />
         </CardContent>
       </Card>
     );
@@ -56,7 +59,7 @@ export function StoryCard({ id, index }: StoryCardProps) {
             <h4 className="flex flex-wrap items-center gap-1">
               {story.title}
               {host && (
-                <span className="text-sm text-gray-400">{`(${host})`}</span>
+                <span aria-label="host" className="text-sm text-gray-400">{`(${host})`}</span>
               )}
             </h4>
           </a>

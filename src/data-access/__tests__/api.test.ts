@@ -1,12 +1,18 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+import { logger } from "@/lib/logger.ts";
 import { server } from "../../test/server";
 import { createTestWrapper } from "../../test/utils.tsx";
 import { useGetStory, useGetStoryIds } from "../api.ts";
 
+vi.mock("@/lib/logger");
+
+const mockedLogger = vi.mocked(logger);
+
 describe("useGetStoryIds", () => {
-  it("returns paginated ids", async () => {
+  it("should return paginated ids", async () => {
     const mockIds = Array.from({ length: 30 }, (_, i) => `${i + 1}`);
 
     server.use(
@@ -31,7 +37,7 @@ describe("useGetStoryIds", () => {
 });
 
 describe("useGetStory", () => {
-  it("fetches a story by id", async () => {
+  it("should fetch a story by id", async () => {
     const mockStory = {
       id: 123,
       title: "Test Story",
@@ -55,6 +61,27 @@ describe("useGetStory", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
+    expect(result.current.data).toEqual(mockStory);
+  });
+
+  it("should log a warning if the storySchema parsing fails", async () => {
+    const mockStory = {
+      title: "Test Story",
+    };
+
+    server.use(
+      http.get(`https://hacker-news.firebaseio.com/v0/item/123.json`, () => {
+        return HttpResponse.json(mockStory);
+      }),
+    );
+
+    const { result } = renderHook(() => useGetStory("123"), {
+      wrapper: createTestWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(mockedLogger.warn).toHaveBeenCalled();
     expect(result.current.data).toEqual(mockStory);
   });
 });

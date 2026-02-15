@@ -1,38 +1,61 @@
-import type { PaginationType } from "@/types";
 import { useState } from "react";
 
-type UsePaginationProps = Partial<PaginationType>;
+type UsePaginationProps = {
+  page?: number;
+  size?: number;
+};
 
 export const usePagination = ({
-  page: defaultPage = 1,
-  size: defaultSize = 10,
-}: UsePaginationProps) => {
-  const [page, setPage] = useState(defaultPage);
-  const [size, setSize] = useState(defaultSize);
+  page: initialPage = 1,
+  size: initialSize = 10,
+}: UsePaginationProps = {}) => {
+  const [page, setPage] = useState(initialPage);
+  const [size, setSize] = useState(initialSize);
 
-  const handleNextPage = (toLastPage?: boolean, maxSize?: number) => {
-    const maxPage = Math.round((maxSize || size) / size);
-    if (toLastPage) {
-      setPage(maxPage);
-      return;
-    }
-    const nextPage = page + 1;
-    setPage(nextPage > maxPage ? maxPage : nextPage);
+  const getMaxPage = (totalItems: number) => {
+    return Math.ceil(totalItems / size);
   };
 
-  const handlePrevPage = (toFirstPage?: boolean) => {
-    if (toFirstPage) {
-      setPage(1);
+  const goToPage = (newPage: number, totalItems?: number) => {
+    if (!totalItems) {
+      setPage(Math.max(1, newPage));
       return;
     }
-    const prev = page - 1;
-    setPage(prev < 1 ? 1 : prev);
+
+    const maxPage = getMaxPage(totalItems);
+    const clamped = Math.min(Math.max(1, newPage), maxPage);
+    setPage(clamped);
   };
 
-  const handleSizeChange = (size: string) => {
-    setSize(Number(size));
+  const nextPage = (totalItems?: number) => {
+    goToPage(page + 1, totalItems);
+  };
+
+  const prevPage = () => {
+    goToPage(page - 1);
+  };
+
+  const goToFirstPage = () => {
     setPage(1);
   };
 
-  return { page, size, handleNextPage, handlePrevPage, handleSizeChange };
+  const goToLastPage = (totalItems: number) => {
+    setPage(getMaxPage(totalItems));
+  };
+
+  const changeSize = (newSize: number) => {
+    setSize(newSize);
+    setPage(1);
+  };
+
+  return {
+    page,
+    size,
+    nextPage,
+    prevPage,
+    goToFirstPage,
+    goToLastPage,
+    goToPage,
+    changeSize,
+  };
 };
