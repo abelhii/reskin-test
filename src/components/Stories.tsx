@@ -50,7 +50,7 @@ export function Stories({ category }: StoriesProps) {
         ))}
       </div>
 
-      <div className="flex items-center justify-between gap-4 p-6">
+      <div className="flex items-center justify-between gap-4 py-6 sm:p-6">
         <div className="flex w-fit items-center gap-4">
           <label className="hidden sm:block" htmlFor="select-rows-per-page">
             Rows per page

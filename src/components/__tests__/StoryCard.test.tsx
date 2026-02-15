@@ -17,6 +17,7 @@ describe("StoryCard", () => {
     it("should return the card contents", () => {
       mockedUseGetStory.mockReturnValue({
         data: {
+          id: 1,
           title: "My Story",
           url: "https://example.com/article",
           score: 123,
@@ -56,8 +57,9 @@ describe("StoryCard", () => {
     it("should not return the host if url is undefined", () => {
       mockedUseGetStory.mockReturnValue({
         data: {
+          id: 1,
           title: "My Story",
-          url: null,
+          url: undefined,
           score: 123,
           time: 1700000000,
           by: "john_doe",

@@ -1,5 +1,7 @@
 # Genesys takehome test
 
+![Build](https://github.com/abelhii/reskin-test/actions/workflows/deploy.yml/badge.svg)
+
 Hi, thank you for taking the time to review my take-home test!  
 You can view the deployed version on [Github Pages](https://abelhii.github.io/reskin-test/).
 
@@ -32,7 +34,8 @@ pnpm dev
 ## Assumptions
 
 - The “Redesign the front page” requirement refers to the Hacker News homepage using `topstories.json`.
-- API responses are assumed to be consistent in structure.
+- Opted for client-side pagination as I couldn't find much documentation on how to paginate effectively with the Hacker News api.
+- API responses are assumed to be consistent in structure, but I've parsed the response through a zod schema and log a warning if it fails.
 - More assumptions can be clarified on request.
 
 ## Testing Strategy
@@ -42,7 +45,6 @@ Focus on key UX behaviors and edge cases rather than 100% coverage:
 - API fetching: `getStory`, `getStoryIds`
 - Pagination: `usePagination` hook
 - Components: `StoryCard`
-
 
 ## Minimum requirements
 
@@ -69,7 +71,7 @@ Focus on key UX behaviors and edge cases rather than 100% coverage:
 - [x] Add a way to filter between new and top posts (tabs)
 - [x] Add pagination capabilities
 - [x] add tests
-- [ ] improve StoryCard styling
+- [x] improve StoryCard styling
 - [ ] Dark mode toggle
 
 ## Original prompt

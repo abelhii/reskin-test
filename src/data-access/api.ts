@@ -2,7 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 
 import { logger } from "@/lib/logger";
 import { storySchema } from "@/schemas";
-import { CategoryPaths, type Category, type PaginationType } from "@/types";
+import {
+  CategoryPaths,
+  type Category,
+  type PaginationType,
+  type Story,
+} from "@/types";
 import { storyKeys } from "./api.keys";
 
 const baseUrl = "https://hacker-news.firebaseio.com/v0/";
@@ -58,7 +63,7 @@ export const useGetStoryIds = ({
 };
 
 export const useGetStory = (id: string) => {
-  const getStory = async () => {
+  const getStory = async (): Promise<Story> => {
     const response = await fetch(buildUrl(`item/${id}.json`));
     if (!response.ok) throw new Error(`HTTP error: status: ${response.status}`);
 

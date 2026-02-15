@@ -8,5 +8,6 @@ export const storySchema = z
     title: z.string().optional(),
     url: z.url().optional(),
     score: z.number().optional(),
+    kids: z.array(z.number()).optional(),
   })
   .loose();
