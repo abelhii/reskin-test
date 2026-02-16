@@ -31,10 +31,26 @@ pnpm dev
 - **Validation:** zod (runtime API validation)
 - **Testing:** Vitest, React Testing Library, MSW
 
+## Component Architecture
+
+Below is a simplified breakdown of the component hierarchy:
+
+![Component Architecture](./public/component-architecture.png)
+
+The application follows a top-down compositional structure:
+
+- `App` – Layout wrapper
+  - `Nav` – Contains the main logo and user profile
+  - `FrontPage` – Responsible for Post type switching (Top / New / Show)
+    - `Stories` – Handles pagination slicing and listing stories
+      - `StoryCard` – Presentational component
+      - `StoriesPagination` – Isolated client-side pagination logic
+  - `Footer` – Static footer
+
 ## Assumptions
 
 - The “Redesign the front page” requirement refers to the Hacker News homepage using `topstories.json`.
-- Opted for client-side pagination as I couldn't find much documentation on how to paginate effectively with the Hacker News api.
+- The Hacker News API does not provide offset-based pagination. To ensure smooth UX and predictable caching behavior, client-side pagination was implemented on the fetched story IDs.
 - API responses are assumed to be consistent in structure, but I've parsed the response through a zod schema and log a warning if it fails.
 - More assumptions can be clarified on request.
 
@@ -54,25 +70,12 @@ Focus on key UX behaviors and edge cases rather than 100% coverage:
 - [x] How you handle **pagination** of the posts to display is up to you, but you should be able to load as many posts as the API permits while achieving a clean UX
 - [x] add tests
 
-## TODO
+## Possible Improvements
 
-- [x] Setup tests (vitest, react testing library, msw)
-- [x] Setup style and component (tailwindcss and ShadCN)
-- [x] setup server state management (ReactQuery)
-  - [x] setup runtime validations (zod)
-- [x] Deploy to github pages
-- [x] Create frontpage
-  - [x] fetch top posts for front page
-  - [x] fetch new posts for front page
-  - [x] style the front page
-    - [x] add skeleton loader
-    - [x] Create story card component
-  - [x] add types for the api
-- [x] Add a way to filter between new and top posts (tabs)
-- [x] Add pagination capabilities
-- [x] add tests
-- [x] improve StoryCard styling
-- [ ] Dark mode toggle
+- Dark mode toggle
+- Infinite scrolling as an alternative to pagination
+- Go to specific page
+- Store selected page state in search params
 
 ## Original prompt
 

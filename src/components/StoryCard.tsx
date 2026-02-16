@@ -1,5 +1,3 @@
-import { useGetStory } from "@/data-access/api";
-import { logger } from "@/lib/logger";
 import { formatDistanceToNowStrict } from "date-fns";
 import {
   ArrowBigUp,
@@ -9,6 +7,9 @@ import {
   User,
 } from "lucide-react";
 import { toast } from "sonner";
+
+import { useGetStory } from "@/data-access/api";
+import { logger } from "@/lib/logger";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
